@@ -9,6 +9,8 @@ public class User implements Serializable {
     private String password;
     private boolean firstLogin;
     private String authToken;
+    private String name;
+    private String profilePictureUrl;
 
     public User() {
     }
@@ -52,6 +54,22 @@ public class User implements Serializable {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
     }
 
 }

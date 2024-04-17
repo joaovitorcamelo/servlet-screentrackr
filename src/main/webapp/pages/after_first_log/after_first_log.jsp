@@ -21,36 +21,18 @@
         font-size: 40px;
       }
     </style>
-    <script src="after_first_log.js"></script>
   </head>
 
   <body>
-    <form action="" id="name-form">
-      <div class="form-header">
-        <h1>What's your name?</h1>
-      </div>
-      <input type="text" placeholder="Name" required />
-      <button class="primary-btn" type="button" id="send-name-btn">
-        Continue
-      </button>
-    </form>
-
-    <form action="" id="photo-form">
-      <div class="form-header">
-        <h1>Set a profile picture</h1>
-      </div>
-
-      <label for="image-input" id="upload-label">
-        <span>Click to upload</span>
-      </label>
-      <input type="file" id="image-input" accept="image/*" />
-
-      <div id="form-buttons">
-        <button class="primary-btn" type="button" id="skip-btn">Skip</button>
-        <button class="primary-btn" type="button" id="send-picture-btn">
-          Continue
-        </button>
-      </div>
-    </form>
+  <form action="${pageContext.request.contextPath}/UpdateNameServlet" method="POST" id="name-form">
+    <div class="form-header">
+      <h1>What's your name?</h1>
+    </div>
+    <input type="text" name="name" placeholder="Name" required />
+    <button class="primary-btn" type="submit" id="send-name-btn">
+      Continue
+    </button>
+  </form>
   </body>
+
 </html>

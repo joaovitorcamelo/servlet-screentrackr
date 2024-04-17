@@ -4,6 +4,7 @@ import com.screentrackr.screentrackr.model.User;
 
 import java.sql.*;
 
+
 public class UserDAO {
 
     private String jdbcURL = "jdbc:postgresql://localhost:5432/screentrackr";
@@ -66,7 +67,7 @@ public class UserDAO {
 
     public User checkLogin(String email, String password) {
         User user = null;
-        String sql = "SELECT email, password FROM users WHERE email = ? AND password = ?";
+        String sql = "SELECT id, email, auth_token FROM users WHERE email = ? AND password = ?";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -79,7 +80,6 @@ public class UserDAO {
                 user = new User();
                 user.setId(resultSet.getInt("id"));
                 user.setEmail(resultSet.getString("email"));
-                user.setFirstLogin(resultSet.getBoolean("first_login"));
                 user.setAuthToken(resultSet.getString("auth_token"));
             }
         } catch (SQLException e) {
@@ -103,6 +103,22 @@ public class UserDAO {
             throw e;
         }
     }
+
+    public void updateUserName(int userId, String name) throws SQLException {
+        String sql = "UPDATE users SET name = ? WHERE id = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 
 }
 
