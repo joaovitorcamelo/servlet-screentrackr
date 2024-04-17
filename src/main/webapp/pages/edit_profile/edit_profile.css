@@ -1,0 +1,42 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  gap: 30px;
+  color: #e7def0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tracker-list {
+  display: flex;
+  flex-direction: row;
+  padding: 0 0 3px 0;
+  gap: 5px;
+  overflow-x: auto;
+  width: 80vw;
+  list-style: none;
+}
+
+.tracker-list::-webkit-scrollbar {
+  background-color: var(--input-bg);
+  border-radius: 4px;
+}
+
+.tracker-list::-webkit-scrollbar-thumb {
+  background-color: var(--main-color);
+  border-radius: 4px;
+}
+
+.tracker-list li {
+  background-color: #ada4b6;
+  width: 100px;
+  height: 160px;
+  min-width: 100px;
+}

@@ -1,0 +1,64 @@
+body {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 120px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20vh;
+}
+
+.form-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+form button {
+  margin-top: 10px;
+}
+
+#image-input {
+  display: none;
+}
+
+#upload-label {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 150px;
+  background-color: #e7def0;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+}
+
+#upload-label span {
+  display: none;
+  color: #2c2a2f;
+  font-size: 14px;
+}
+
+#upload-label:hover span {
+  display: block;
+}
+
+#upload-label:hover {
+  background-color: #ada4b6;
+}
+
+#form-buttons {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 5px;
+}
