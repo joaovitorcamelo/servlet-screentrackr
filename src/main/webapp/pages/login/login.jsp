@@ -26,17 +26,15 @@
         <img src="../../assets/screentrackr.svg" alt="screentrackr" />
       </a>
     </header>
-    <form action="">
-      <input type="text" placeholder="E-mail" required />
-      <input type="password" placeholder="Password" required />
-      <a class="forgot-password" href="../forgot-password/forgot-password.html"
-        >Forgot password</a
-      >
+    <form action="${pageContext.request.contextPath}/LoginServlet" method="POST">
+      <input type="email" name="email" placeholder="E-mail" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <a class="forgot-password" href="../forgot-password/forgot-password.html">Forgot password</a>
       <button class="primary-btn" type="submit">Login</button>
       <span class="signup-link">
-        Don`t have an account yet?
+        Don't have an account yet?
         <a href="../register/register.jsp">Sign up now</a>
-      </span>
+    </span>
     </form>
   </body>
 </html>

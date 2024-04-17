@@ -64,6 +64,45 @@ public class UserDAO {
         return emailTaken;
     }
 
-    // Outros métodos CRUD podem ser adicionados aqui (ex: selectUser, updateUser, deleteUser...)
+    public User checkLogin(String email, String password) {
+        User user = null;
+        String sql = "SELECT email, password FROM users WHERE email = ? AND password = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setEmail(resultSet.getString("email"));
+                user.setFirstLogin(resultSet.getBoolean("first_login"));
+                user.setAuthToken(resultSet.getString("auth_token"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public void updateUserAuthToken(String userEmail, String authToken) throws SQLException {
+        String sql = "UPDATE users SET auth_token = ? WHERE email = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, authToken);
+            preparedStatement.setString(2, userEmail);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 }
 

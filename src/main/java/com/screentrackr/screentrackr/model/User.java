@@ -4,13 +4,24 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+    private int id;
     private String email;
     private String password;
+    private boolean firstLogin;
+    private String authToken;
 
     public User() {
     }
 
     // Getters e setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -25,6 +36,22 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isFirstLogin() {
+        return firstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
+        this.firstLogin = firstLogin;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 
 }
