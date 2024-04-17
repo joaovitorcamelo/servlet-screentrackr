@@ -14,6 +14,13 @@
   </head>
 
   <body>
+  <% if (session.getAttribute("errorMessage") != null) { %>
+  <div class="error-message">
+    <h1>Login Error</h1>
+    <p><%= session.getAttribute("errorMessage") %></p>
+  </div>
+  <% session.removeAttribute("errorMessage"); // Remove a mensagem após exibição %>
+  <% } %>
     <% if (session.getAttribute("message") != null) { %>
     <div class="success-message">
       <h1>Registration Succeeded</h1>

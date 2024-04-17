@@ -69,3 +69,19 @@ form button {
   color: #145214;
   margin-bottom: 5px;
 }
+
+.error-message {
+  position: absolute;
+  top: 0;
+  background-color: #ffdddd;
+  width: 100%;
+  padding: 20px;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.error-message h1 {
+  color: #D8000C;
+  margin-bottom: 5px;
+}

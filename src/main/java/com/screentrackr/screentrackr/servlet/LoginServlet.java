@@ -44,8 +44,8 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/pages/tracker/tracker.jsp");
             }
         } else {
-            request.setAttribute("message", "Credenciais inválidas.");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getSession().setAttribute("errorMessage", "Invalid credentials.");
+            response.sendRedirect(request.getContextPath() + "/pages/login/login.jsp");
         }
     }
 

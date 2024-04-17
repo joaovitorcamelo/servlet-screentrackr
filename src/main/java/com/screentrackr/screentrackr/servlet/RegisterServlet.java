@@ -37,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
         }
 
         if (errorPresent) {
-            request.getSession().setAttribute("message", errorMessage.trim());
+            request.getSession().setAttribute("errorMessage", errorMessage.trim());
             response.sendRedirect(request.getContextPath() + "/pages/register/register.jsp");
             return;
         }
@@ -53,8 +53,8 @@ public class RegisterServlet extends HttpServlet {
             // Redirect to the login page
             response.sendRedirect(request.getContextPath() + "/pages/login/login.jsp");
         } catch (Exception e) {
-            request.setAttribute("message", "Error registering user: " + e.getMessage());
-            request.getRequestDispatcher("/pages/register/register.jsp").forward(request, response);
+            request.setAttribute("errorMessage", "Error registering user: " + e.getMessage());
+            request.getRequestDispatcher(request.getContextPath() + "/pages/register/register.jsp").forward(request, response);
         }
     }
 }

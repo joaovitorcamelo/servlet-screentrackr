@@ -14,12 +14,12 @@
   </head>
 
   <body>
-  <% if (session.getAttribute("message") != null) { %>
+  <% if (session.getAttribute("errorMessage") != null) { %>
   <div class="error-message">
     <h1>Registration Error</h1>
-    <p><%= session.getAttribute("message") %></p>
+    <p><%= session.getAttribute("errorMessage") %></p>
   </div>
-  <% session.removeAttribute("message"); // Remove a mensagem após exibição %>
+  <% session.removeAttribute("errorMessage"); // Remove a mensagem após exibição %>
   <% } %>
 
   <header class="not-logged-header">
