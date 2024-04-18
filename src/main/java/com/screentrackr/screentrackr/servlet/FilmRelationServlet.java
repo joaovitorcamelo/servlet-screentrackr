@@ -1,5 +1,6 @@
 package com.screentrackr.screentrackr.servlet;
 
+import com.google.gson.Gson;
 import com.screentrackr.screentrackr.dao.UserFilmRelationDAO;
 import com.screentrackr.screentrackr.model.User;
 import com.screentrackr.screentrackr.model.UserFilmRelation;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,23 @@ public class FilmRelationServlet extends HttpServlet {
 
     public void init() {
         userFilmRelationDAO = new UserFilmRelationDAO();
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        // Busca as relações do filme para o usuário
+        int userId = user.getId();
+        List<UserFilmRelation> relations = userFilmRelationDAO.getAllRelationsForUser(userId);
+
+        // Salva a lista de relações na sessão
+        session.setAttribute("filmRelations", relations);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,8 +54,9 @@ public class FilmRelationServlet extends HttpServlet {
         String filmId = request.getParameter("filmId");
         String relationType = request.getParameter("relationType");
         boolean isFavorite = Boolean.parseBoolean(request.getParameter("favorite"));
+        String posterImgUrl = request.getParameter("posterImgUrl"); // Nova adição para obter a URL do pôster
 
-        UserFilmRelation relation = new UserFilmRelation(userId, filmId, relationType, isFavorite);
+        UserFilmRelation relation = new UserFilmRelation(userId, filmId, relationType, isFavorite, posterImgUrl); // Alteração para incluir a URL do pôster
 
         try {
             userFilmRelationDAO.addOrUpdateRelation(relation);
@@ -48,6 +68,7 @@ public class FilmRelationServlet extends HttpServlet {
             request.getRequestDispatcher("/pages/error.jsp").forward(request, response);
         }
     }
+
 
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
@@ -85,5 +106,21 @@ public class FilmRelationServlet extends HttpServlet {
             relations.removeIf(rel -> rel.getFilmId().equals(filmId) && rel.getUserId() == userId);
             session.setAttribute("filmRelations", relations);
         }
+    }
+
+    private void updateRelations(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "User is missing in session.");
+            return;
+        }
+
+        int userId = user.getId();
+        List<UserFilmRelation> relations = userFilmRelationDAO.getAllRelationsForUser(userId);
+        session.setAttribute("filmRelations", relations); // Update session
+
+        response.setContentType("application/json");
+        response.getWriter().write(new Gson().toJson(relations));
     }
 }

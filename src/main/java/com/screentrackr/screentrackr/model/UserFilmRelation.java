@@ -9,6 +9,7 @@ public class UserFilmRelation implements Serializable {
     private String filmId;
     private String relationType;
     private boolean isFavorite;
+    private String posterImgUrl; // Novo campo para armazenar a URL do pôster
 
     // Default constructor
     public UserFilmRelation() {
@@ -16,11 +17,12 @@ public class UserFilmRelation implements Serializable {
     }
 
     // Parameterized constructor
-    public UserFilmRelation(int userId, String filmId, String relationType, boolean isFavorite) {
+    public UserFilmRelation(int userId, String filmId, String relationType, boolean isFavorite, String posterImgUrl) {
         this.userId = userId;
         this.filmId = filmId;
         this.relationType = relationType;
         this.isFavorite = isFavorite;
+        this.posterImgUrl = posterImgUrl; // Inicialização do novo campo
     }
 
     // Getters and setters
@@ -54,5 +56,13 @@ public class UserFilmRelation implements Serializable {
 
     public void setFavorite(boolean isFavorite) {
         this.isFavorite = isFavorite;
+    }
+
+    public String getPosterImgUrl() {
+        return posterImgUrl;
+    }
+
+    public void setPosterImgUrl(String posterImgUrl) {
+        this.posterImgUrl = posterImgUrl;
     }
 }

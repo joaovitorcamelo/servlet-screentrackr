@@ -32,7 +32,8 @@ function showFilmModal(film) {
     <h3>${film.imdbRating} (${film.imdbVotes} votes)</h3>
     <p id="plot">${film.Plot}</p></div>`;
     document.getElementById('filmModal').style.display = 'block';
-    document.getElementById('filmId').value = film.imdbID; // Set the hidden input field value
+    document.getElementById('filmId').value = film.imdbID;
+    document.getElementById('posterImgUrl').value = film.Poster;
 }
 
 function closeModal() {
@@ -40,38 +41,3 @@ function closeModal() {
 }
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    fetchRelationsAndUpdateUI();
-
-    function fetchRelationsAndUpdateUI() {
-        fetch('/api/relations')  // Adjust URL to your actual API endpoint
-            .then(response => response.json()).then(relations => {
-            updateSections(relations);
-        })
-            .catch(error => console.error('Error loading film relations:', error));
-    }
-
-    function updateSections(relations) {
-        const sections = {
-            'watching': document.getElementById('currently-list'),
-            'watchlist': document.getElementById('watchlist-list'),
-            'watched': document.getElementById('watched-list'),
-            'cancelled': document.getElementById('cancelled-list')
-        };
-
-        for (const relation of relations) {
-            const listItem = document.createElement('li');
-            fetchPoster(relation.filmId)
-                .then(posterUrl => {
-                    listItem.innerHTML = `<img src="${posterUrl}" alt="Poster">`;
-                    sections[relation.relationType].appendChild(listItem);
-                });
-        }
-    }
-
-    function fetchPoster(filmId) {
-        return fetch(`http://www.omdbapi.com/?i=${filmId}&apikey=4408d32b`)
-            .then(response => response.json())
-            .then(data => data.Poster);
-    }
-});

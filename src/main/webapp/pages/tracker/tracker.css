@@ -24,6 +24,11 @@ main {
   list-style: none;
 }
 
+.tracker-list ul {
+  display: flex;
+  gap: 15px;
+}
+
 .tracker-list::-webkit-scrollbar {
   background-color: var(--input-bg);
   border-radius: 4px;
@@ -39,6 +44,12 @@ main {
   width: 100px;
   height: 160px;
   min-width: 100px;
+  overflow: hidden;
+}
+
+.tracker-list img {
+  width: 100px;
+  height: 160px;
 }
 
 

@@ -14,6 +14,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/dao/UserFilmRelationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/dao/UserFilmRelationDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/model/UserFilmRelation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/model/UserFilmRelation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/servlet/FilmRelationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/servlet/FilmRelationServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.jsp" afterDir="false" />
     </list>
@@ -179,7 +180,7 @@
       <workItem from="1713353686973" duration="1988000" />
       <workItem from="1713361181540" duration="9824000" />
       <workItem from="1713391016919" duration="24105000" />
-      <workItem from="1713440991042" duration="3729000" />
+      <workItem from="1713440991042" duration="15894000" />
     </task>
     <servers />
   </component>

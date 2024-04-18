@@ -1,3 +1,8 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.screentrackr.screentrackr.model.UserFilmRelation" %>
+<%
+  List<UserFilmRelation> filmRelations = (List<UserFilmRelation>) session.getAttribute("filmRelations");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +25,7 @@
   <form method="post" action="<%= request.getContextPath() %>/FilmRelationServlet">
     <input type="hidden" id="filmId" name="filmId" value="">
     <input type="hidden" id="favorite" name="favorite" value="false">
+    <input type="hidden" id="posterImgUrl" name="posterImgUrl" value=""> <!-- Adicione este campo hidden para a URL do pôster -->
 
     <select id="relationType" name="relationType">
       <option value="watching">Watching</option>
@@ -59,22 +65,102 @@
 <main>
   <section id="currently-watching" class="tracker-section">
     <h1 class="section-header">Currently Watching</h1>
-    <ul id="currently-list" class="tracker-list"></ul>
+    <ul id="currently-list" class="tracker-list">
+      <%
+        if (filmRelations != null && !filmRelations.isEmpty()) {
+          for (UserFilmRelation relation : filmRelations) {
+            if ("watching".equals(relation.getRelationType())) {
+              out.println("<li><img src='" + relation.getPosterImgUrl() + "' alt='Poster'></li>");
+            }
+          }
+        } else {
+          out.println("No films currently being watched.");
+        }
+      %>
+    </ul>
   </section>
+
   <section id="watchlist" class="tracker-section">
     <h1 class="section-header">Watchlist</h1>
-    <ul id="watchlist-list" class="tracker-list"></ul>
+    <ul id="watchlist-list" class="tracker-list">
+      <%
+        if (filmRelations != null && !filmRelations.isEmpty()) {
+          for (UserFilmRelation relation : filmRelations) {
+            if ("watchlist".equals(relation.getRelationType())) {
+              out.println("<li><img src='" + relation.getPosterImgUrl() + "' alt='Poster'></li>");
+            }
+          }
+        } else {
+          out.println("No films in the watchlist.");
+        }
+      %>
+    </ul>
   </section>
+
   <section id="watched" class="tracker-section">
     <h1 class="section-header">Watched</h1>
-    <ul id="watched-list" class="tracker-list"></ul>
+    <ul id="watched-list" class="tracker-list">
+      <%
+        if (filmRelations != null && !filmRelations.isEmpty()) {
+          for (UserFilmRelation relation : filmRelations) {
+            if ("watched".equals(relation.getRelationType())) {
+              out.println("<li><img src='" + relation.getPosterImgUrl() + "' alt='Poster'></li>");
+            }
+          }
+        } else {
+          out.println("No films watched.");
+        }
+      %>
+    </ul>
   </section>
+
   <section id="cancelled" class="tracker-section">
     <h1 class="section-header">Cancelled</h1>
-    <ul id="cancelled-list" class="tracker-list"></ul>
+    <ul id="cancelled-list" class="tracker-list">
+      <%
+        if (filmRelations != null && !filmRelations.isEmpty()) {
+          for (UserFilmRelation relation : filmRelations) {
+            if ("cancelled".equals(relation.getRelationType())) {
+              out.println("<li><img src='" + relation.getPosterImgUrl() + "' alt='Poster'></li>");
+            }
+          }
+        } else {
+          out.println("No cancelled films.");
+        }
+      %>
+    </ul>
   </section>
+
+
 </main>
 <script src="../../scripts/dropdown.js"></script>
 <script src="tracker.js"></script>
+<script>
+  // Get the context path
+  var contextPath = "${pageContext.request.contextPath}";
+
+  // Set the URL of the servlet using the context path
+  var servletUrl = contextPath + "/FilmRelationServlet";
+
+  // Function to make the request using fetch
+  function setFilmRelationsInSession() {
+    fetch(servletUrl)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Error while making the request');
+              }
+              return response.text();
+            })
+            .then(data => {
+              console.log(data);
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+  }
+
+  // Call the setFilmRelationsInSession function when the page is loaded
+  document.addEventListener("DOMContentLoaded", setFilmRelationsInSession);
+</script>
 </body>
 </html>
