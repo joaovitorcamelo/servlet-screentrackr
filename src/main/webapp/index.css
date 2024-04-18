@@ -153,18 +153,55 @@ input[type='email'] {
   position: relative;
   display: flex;
   align-items: center;
+  height: max-content;
 }
 
 .input-with-icon .material-symbols-outlined {
   position: absolute;
-  left: 5px;
+  right: 5px;
   font-size: 20px;
-  color: #6c6771;
+  color: var(--brightest-color);
 }
 
 .input-with-icon input {
-  padding-left: 30px;
+  height: 100%;
+  padding-left: 10px;
 }
+
+.input-with-icon #search-button {
+  padding: 5px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: var(--main-color);
+  }
+}
+
+#searchResults {
+  position: absolute;
+  background-color: var(--input-bg);
+  top: 110%;
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+}
+
+#searchResults>div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+#searchResults img {
+  width: 70px;
+}
+
+#searchResults span {
+  text-align: center;
+  font-size: 16px;
+}
+
 
 .primary-btn {
   background-color: var(--main-color);
@@ -182,4 +219,53 @@ input[type='email'] {
   &:focus {
     background-color: var(--main-color-focus);
   }
+}
+
+#filmModal {
+  display: none;
+  background-color: var(--input-bg);
+  width: max-content;
+  padding: 20px;
+  border-radius: 8px;
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#filmDetails {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 20px;
+}
+
+#filmDetails h1 {
+  font-size: 24px;
+}
+
+#filmDetails h3 {
+  font-size: 16px;
+}
+
+#filmDetails p {
+  font-size: 14px;
+  text-align: center;
+}
+
+#filmDetails img {
+  height: 40vh;
+}
+
+#filmDetails>div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  width: 40vh;
+}
+
+#filmDetails #plot {
+  margin-top: 10px;
 }

@@ -11,10 +11,6 @@ public class UserDAO {
     private String jdbcUsername = "postgres";
     private String jdbcPassword = "postgres";
 
-    private static final String INSERT_USERS_SQL = "INSERT INTO users" +
-            "  (email, password) VALUES " +
-            " (?, ?);";
-
     public UserDAO() {
     }
 
@@ -34,8 +30,10 @@ public class UserDAO {
     }
 
     public void registerUser(User user) throws SQLException {
+        String sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.executeUpdate();
@@ -67,7 +65,7 @@ public class UserDAO {
 
     public User checkLogin(String email, String password) {
         User user = null;
-        String sql = "SELECT id, email, auth_token FROM users WHERE email = ? AND password = ?";
+        String sql = "SELECT id, email, auth_token, name FROM users WHERE email = ? AND password = ?";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -81,6 +79,7 @@ public class UserDAO {
                 user.setId(resultSet.getInt("id"));
                 user.setEmail(resultSet.getString("email"));
                 user.setAuthToken(resultSet.getString("auth_token"));
+                user.setName(resultSet.getString("name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

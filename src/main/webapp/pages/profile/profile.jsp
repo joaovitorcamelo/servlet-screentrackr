@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.screentrackr.screentrackr.model.User"%>
 <!DOCTYPE html>
 
 <html>
@@ -59,7 +60,10 @@
       <section id="profile-info">
         <img src="../../assets/test.webp" alt="Profile image" />
         <div>
-          <h2>Jalin Raba</h2>
+          <h2><% if (session.getAttribute("user") != null) {
+            User user = (User) session.getAttribute("user");
+            out.print(user.getName());
+          }%></h2>
           <p>Bio is written here. Limit of 100 characters.</p>
         </div>
       </section>

@@ -20,10 +20,10 @@ public class UpdateNameServlet extends HttpServlet {
             try {
                 userDAO.updateUserName(user.getId(), name);
                 user.setName(name);
+                response.sendRedirect(request.getContextPath() + "/pages/tracker/tracker.jsp");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        response.sendRedirect(request.getContextPath() + "/pages/tracker/tracker.jsp");
     }
 }

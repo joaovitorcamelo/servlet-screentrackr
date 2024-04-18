@@ -20,20 +20,34 @@
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
       }
     </style>
+
   </head>
 
   <body>
+  <div id="filmModal">
+    <div id="filmDetails"></div>
+    <select id="relationType">
+      <option value="watching">Watching</option>
+      <option value="watchlist">Watchlist</option>
+      <option value="watched">Watched</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+    <button>Create Relation</button>
+    <button onclick="closeModal()">Cancel</button>
+  </div>
     <header id="logged-header">
       <ul id="header-list">
-        <li><a href="../tracker/tracker.html">Tracker</a></li>
-        <li><a href="../profile/profile.html">Profile</a></li>
+        <li><a href="../tracker/tracker.jsp">Tracker</a></li>
+        <li><a href="../profile/profile.jsp">Profile</a></li>
       </ul>
       <img src="../../assets/screentrackr.svg" alt="screentrackr" />
       <div>
         <div class="input-with-icon">
-          <span class="material-symbols-outlined"> search </span>
+          <span class="material-symbols-outlined" id="search-button">search</span>
           <input type="text" id="explore-search" placeholder="Search" />
+          <div id="searchResults" class="search-results"></div>
         </div>
+
         <div id="dropdown-menu">
           <span class="material-symbols-outlined" id="settings-icon">
             settings
@@ -117,5 +131,7 @@
       </section>
     </main>
     <script src="../../scripts/dropdown.js"></script>
+  <script src="tracker.js"></script>
+
   </body>
 </html>
