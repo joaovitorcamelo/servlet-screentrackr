@@ -10,7 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca3187bb-d9a4-412a-8162-776035e4f245" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/dao/UserFilmRelationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/dao/UserFilmRelationDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/model/UserFilmRelation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/model/UserFilmRelation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/servlet/FilmRelationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/servlet/FilmRelationServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/tracker/tracker.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +62,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Tomcat Server.Tomcat 10.1.20.executor": "Run",
     "Tomcat Server.index.jsp.executor": "Run",
-    "git-widget-placeholder": "Front",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/joaoc/OneDrive/Documentos/servlet screentrackr/screentrackr/src/main/webapp",
     "node.js.detected.package.eslint": "true",
@@ -174,7 +178,8 @@
       <workItem from="1713321170654" duration="1503000" />
       <workItem from="1713353686973" duration="1988000" />
       <workItem from="1713361181540" duration="9824000" />
-      <workItem from="1713391016919" duration="23481000" />
+      <workItem from="1713391016919" duration="24105000" />
+      <workItem from="1713440991042" duration="3729000" />
     </task>
     <servers />
   </component>

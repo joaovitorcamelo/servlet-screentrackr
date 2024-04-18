@@ -28,15 +28,14 @@ public class UserFilmRelationDAO {
     }
 
     public void addOrUpdateRelation(UserFilmRelation relation) throws SQLException {
-        String sql = "INSERT INTO user_film_relations (user_id, film_id, relation_type, hours_watched, rating) VALUES (?, ?, ?, ?, ?) ON CONFLICT (user_id, film_id) DO UPDATE SET relation_type = EXCLUDED.relation_type, hours_watched = EXCLUDED.hours_watched, rating = EXCLUDED.rating";
+        String sql = "INSERT INTO user_film_relations (user_id, film_id, relation_type, favorite) VALUES (?, ?, ?, ?) ON CONFLICT (user_id, film_id) DO UPDATE SET relation_type = EXCLUDED.relation_type, favorite = EXCLUDED.favorite";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, relation.getUserId());
             preparedStatement.setString(2, relation.getFilmId());
             preparedStatement.setString(3, relation.getRelationType());
-            preparedStatement.setDouble(4, relation.getHoursWatched());
-            preparedStatement.setDouble(5, relation.getRating());
+            preparedStatement.setBoolean(4, relation.isFavorite());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -61,13 +60,27 @@ public class UserFilmRelationDAO {
                         resultSet.getInt("user_id"),
                         resultSet.getString("film_id"),
                         resultSet.getString("relation_type"),
-                        resultSet.getDouble("hours_watched"),
-                        resultSet.getDouble("rating")
+                        resultSet.getBoolean("favorite")
                 );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return relation;
+    }
+
+    public void deleteRelation(int userId, String filmId) throws SQLException {
+        String sql = "DELETE FROM user_film_relations WHERE user_id = ? AND film_id = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, filmId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            // Handle SQL exception
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

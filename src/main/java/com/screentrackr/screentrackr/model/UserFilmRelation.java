@@ -8,18 +8,19 @@ public class UserFilmRelation implements Serializable {
     private int userId;
     private String filmId;
     private String relationType;
-    private double hoursWatched;
-    private double rating;
+    private boolean isFavorite;
 
+    // Default constructor
     public UserFilmRelation() {
+        // Constructor body can be empty
     }
 
-    public UserFilmRelation(int userId, String filmId, String relationType, double hoursWatched, double rating) {
+    // Parameterized constructor
+    public UserFilmRelation(int userId, String filmId, String relationType, boolean isFavorite) {
         this.userId = userId;
         this.filmId = filmId;
         this.relationType = relationType;
-        this.hoursWatched = hoursWatched;
-        this.rating = rating;
+        this.isFavorite = isFavorite;
     }
 
     // Getters and setters
@@ -47,19 +48,11 @@ public class UserFilmRelation implements Serializable {
         this.relationType = relationType;
     }
 
-    public double getHoursWatched() {
-        return hoursWatched;
+    public boolean isFavorite() {
+        return isFavorite;
     }
 
-    public void setHoursWatched(double hoursWatched) {
-        this.hoursWatched = hoursWatched;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 }
