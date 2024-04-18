@@ -223,6 +223,8 @@ input[type='email'] {
 
 #filmModal {
   display: none;
+  flex-direction: column;
+  gap: 10px;
   background-color: var(--input-bg);
   width: max-content;
   padding: 20px;
@@ -268,4 +270,34 @@ input[type='email'] {
 
 #filmDetails #plot {
   margin-top: 10px;
+}
+
+#filmModal form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+#filmModal select {
+  height: 100%;
+  width: 100%;
+  padding: 10px 20px;
+  text-align: center !important;
+  font-family: 'Inter', Helvetica, sans-serif;
+  outline: none;
+  background-color: #6C6771;
+  border-radius: 4px;
+
+  &:focus {outline: none;}
+}
+
+#filmModal #close-btn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  color: var(--placeholder-color);
+
+  &:hover {
+    color: var(--brightest-color);
+  }
 }

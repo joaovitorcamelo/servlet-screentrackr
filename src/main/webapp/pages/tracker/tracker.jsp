@@ -26,14 +26,16 @@
   <body>
   <div id="filmModal">
     <div id="filmDetails"></div>
-    <select id="relationType">
-      <option value="watching">Watching</option>
-      <option value="watchlist">Watchlist</option>
-      <option value="watched">Watched</option>
-      <option value="cancelled">Cancelled</option>
-    </select>
-    <button>Create Relation</button>
-    <button onclick="closeModal()">Cancel</button>
+    <form>
+      <select id="relationType">
+        <option value="watching"> Watching</option>
+        <option value="watchlist"> Watchlist</option>
+        <option value="watched"> Watched</option>
+        <option value="cancelled"> Cancelled</option>
+      </select>
+      <button type="submit" class="primary-btn">Add</button>
+    </form>
+    <span id="close-btn" onclick="closeModal()" class="material-symbols-outlined"> close </span>
   </div>
     <header id="logged-header">
       <ul id="header-list">
