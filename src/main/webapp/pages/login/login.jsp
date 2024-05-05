@@ -29,7 +29,7 @@
     <% session.removeAttribute("message"); // Remove message after displaying %>
     <% } %>
     <header class="not-logged-header">
-      <a href="./login.jsp">
+      <a href="login.jsp">
         <img src="../../assets/screentrackr.svg" alt="screentrackr" />
       </a>
     </header>

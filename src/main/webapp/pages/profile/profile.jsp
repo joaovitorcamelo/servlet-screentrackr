@@ -24,38 +24,30 @@
   </head>
 
   <body>
-    <header id="logged-header">
-      <ul id="header-list">
-        <li><a href="../tracker/tracker.jsp">Tracker</a></li>
-        <li><a href="../profile/profile.html">Profile</a></li>
-      </ul>
-      <img src="../../assets/screentrackr.svg" alt="screentrackr" />
-      <div>
-        <div class="input-with-icon">
-          <span class="material-symbols-outlined"> search </span>
-          <input type="text" id="explore-search" placeholder="Search" />
-        </div>
-        <div id="dropdown-menu">
-          <span class="material-symbols-outlined" id="settings-icon">
-            settings
-          </span>
-          <div id="dropdown-background">
-            <ul id="dropdown-body">
-              <li>
-                <span class="material-symbols-outlined"> edit </span>
-                <a href="../edit_profile/edit_profile.html">
-                  <span>Edit profile</span>
-                </a>
-              </li>
-              <li>
-                <span class="material-symbols-outlined"> logout </span>
-                <span>Logout</span>
-              </li>
-            </ul>
-          </div>
+  <header id="logged-header">
+    <ul id="header-list">
+      <li><a href="../tracker/tracker.jsp">Tracker</a></li>
+      <li><a href="../profile/profile.jsp">Profile</a></li>
+    </ul>
+    <img src="../../assets/screentrackr.svg" alt="screentrackr" />
+    <div>
+      <div class="input-with-icon">
+        <span class="material-symbols-outlined" id="search-button">search</span>
+        <input type="text" id="explore-search" placeholder="Search" />
+        <div id="searchResults" class="search-results"></div>
+      </div>
+
+      <div id="dropdown-menu">
+        <span class="material-symbols-outlined" id="settings-icon">settings</span>
+        <div id="dropdown-background">
+          <ul id="dropdown-body">
+            <li><span class="material-symbols-outlined">edit</span><a href="../edit_profile/edit_profile.html"><span>Edit profile</span></a></li>
+            <li><span class="material-symbols-outlined">logout</span><a href="../login/login.jsp"><span>Logout</span></a></li>
+          </ul>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
     <main>
       <section id="profile-info">
         <img src="../../assets/test.webp" alt="Profile image" />
@@ -80,5 +72,6 @@
       </section>
     </main>
     <script src="../../scripts/dropdown.js"></script>
+  <script src="profile.js"></script>
   </body>
 </html>

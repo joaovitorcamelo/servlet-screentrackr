@@ -61,29 +61,3 @@ function closeModal() {
     document.getElementById('filmModal').style.display = 'none';
 }
 
-function deleteFilmRelation() {
-    var filmId = document.getElementById('filmId').value;
-    if (!filmId) {
-        alert('No film selected for deletion!');
-        return;
-    }
-
-    fetch('<%= request.getContextPath() %>/FilmRelationServlet', {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'filmId=' + filmId
-    })
-        .then(response => {
-            if (response.ok) {
-                alert('Film relation deleted successfully!');
-                closeModal(); // Fechar o modal após a exclusão
-                location.reload(); // Recarregar a página para refletir as mudanças
-            } else {
-                alert('Failed to delete film relation. Please try again.');
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
-

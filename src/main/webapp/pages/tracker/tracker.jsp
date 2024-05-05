@@ -33,8 +33,9 @@
       <option value="watched">Watched</option>
       <option value="cancelled">Cancelled</option>
     </select>
-    <button type="submit" class="primary-btn">Add</button>
+    <button type="submit" class="primary-btn" id="add-submit-film">Add</button>
   </form>
+<%--  <button onclick="deleteFilmRelation()" id="delete-relation-btn">Delete</button>--%>
   <span id="close-btn" onclick="closeModal()" class="material-symbols-outlined">close</span>
 </div>
 
@@ -56,7 +57,7 @@
       <div id="dropdown-background">
         <ul id="dropdown-body">
           <li><span class="material-symbols-outlined">edit</span><a href="../edit_profile/edit_profile.html"><span>Edit profile</span></a></li>
-          <li><span class="material-symbols-outlined">logout</span><span>Logout</span></li>
+          <li><span class="material-symbols-outlined">logout</span><a href="../login/login.jsp"><span>Logout</span></a></li>
         </ul>
       </div>
     </div>
