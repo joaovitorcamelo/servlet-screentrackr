@@ -118,6 +118,29 @@ public class UserDAO {
         }
     }
 
+    public User getUserByAuthToken(String authToken) {
+        User user = null;
+        String sql = "SELECT id, email, name, auth_token FROM users WHERE auth_token = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, authToken);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setEmail(resultSet.getString("email"));
+                user.setName(resultSet.getString("name"));
+                user.setAuthToken(resultSet.getString("auth_token"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
 
 }
 

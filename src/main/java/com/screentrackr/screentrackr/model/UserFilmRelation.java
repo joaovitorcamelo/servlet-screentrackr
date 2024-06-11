@@ -9,23 +9,35 @@ public class UserFilmRelation implements Serializable {
     private String filmId;
     private String relationType;
     private boolean isFavorite;
-    private String posterImgUrl; // Novo campo para armazenar a URL do pôster
+    private String posterImgUrl;
+    private String title;
+    private String year;
+    private String director;
+    private String rating;
+    private String votes;
+    private String plot;
 
-    // Default constructor
     public UserFilmRelation() {
-        // Constructor body can be empty
     }
 
-    // Parameterized constructor
-    public UserFilmRelation(int userId, String filmId, String relationType, boolean isFavorite, String posterImgUrl) {
+    public UserFilmRelation(int userId, String filmId, String relationType, boolean isFavorite, String posterImgUrl, String title, String year, String director, String rating, String votes, String plot) {
         this.userId = userId;
         this.filmId = filmId;
         this.relationType = relationType;
         this.isFavorite = isFavorite;
-        this.posterImgUrl = posterImgUrl; // Inicialização do novo campo
+        this.posterImgUrl = posterImgUrl;
+        this.title = title;
+        this.year = year;
+        this.director = director;
+        this.rating = rating;
+        this.votes = votes;
+        this.plot = plot;
     }
 
-    // Getters and setters
+    public UserFilmRelation(int userId, String filmId, String relationType, boolean isFavorite, String posterImgUrl) {
+    }
+
+    // Getters and setters for all fields
     public int getUserId() {
         return userId;
     }
@@ -64,5 +76,53 @@ public class UserFilmRelation implements Serializable {
 
     public void setPosterImgUrl(String posterImgUrl) {
         this.posterImgUrl = posterImgUrl;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getVotes() {
+        return votes;
+    }
+
+    public void setVotes(String votes) {
+        this.votes = votes;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
     }
 }

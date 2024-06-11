@@ -11,19 +11,33 @@ import java.io.IOException;
 
 @WebServlet("/UpdateNameServlet")
 public class UpdateNameServlet extends HttpServlet {
-    private UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO = new UserDAO();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
-        User user = (User) request.getSession().getAttribute("user");
-        if (user != null && name != null) {
+        String userIdStr = request.getParameter("userId");
+
+        if (userIdStr != null && !userIdStr.isEmpty() && name != null && !name.trim().isEmpty()) {
             try {
-                userDAO.updateUserName(user.getId(), name);
-                user.setName(name);
-                response.sendRedirect(request.getContextPath() + "/pages/tracker/tracker.jsp");
+                int userId = Integer.parseInt(userIdStr);
+                userDAO.updateUserName(userId, name);
+
+                // Atualizar o nome do usuário na sessão
+                User user = (User) request.getSession().getAttribute("user");
+                if (user != null && user.getId() == userId) {
+                    user.setName(name);
+                }
+
+                response.setContentType("application/json");
+                response.getWriter().write("{\"status\": \"success\"}");
             } catch (Exception e) {
                 e.printStackTrace();
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().write("{\"status\": \"error\", \"message\": \"Failed to update name.\"}");
             }
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("{\"status\": \"error\", \"message\": \"Invalid request.\"}");
         }
     }
 }

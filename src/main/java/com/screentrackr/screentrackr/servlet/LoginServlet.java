@@ -1,5 +1,6 @@
 package com.screentrackr.screentrackr.servlet;
 
+import com.google.gson.JsonObject;
 import com.screentrackr.screentrackr.model.User;
 import com.screentrackr.screentrackr.dao.UserDAO;
 import jakarta.servlet.ServletException;
@@ -24,8 +25,10 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         User user = userDAO.checkLogin(email, password);
+        JsonObject jsonResponse = new JsonObject();
+
         if (user != null) {
-            String currentToken = user.getAuthToken();
+            boolean firstLogin = (user.getAuthToken() == null);
 
             String newAuthToken = UUID.randomUUID().toString();
 
@@ -38,15 +41,20 @@ public class LoginServlet extends HttpServlet {
             request.getSession().setAttribute("authToken", newAuthToken);
             request.getSession().setAttribute("user", user);
 
-            if (currentToken == null) {
-                response.sendRedirect(request.getContextPath() + "/pages/after_first_log/after_first_log.jsp");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/pages/tracker/tracker.jsp");
-            }
+            // Montar a resposta JSON
+            jsonResponse.addProperty("status", "success");
+            jsonResponse.addProperty("firstLogin", firstLogin);
+            jsonResponse.addProperty("authToken", newAuthToken);
+            jsonResponse.addProperty("userId", user.getId()); // Adicionar ID do usuário para identificação
+
+            response.setContentType("application/json");
+            response.getWriter().write(jsonResponse.toString());
         } else {
-            request.getSession().setAttribute("errorMessage", "Invalid credentials.");
-            response.sendRedirect(request.getContextPath() + "/pages/login/login.jsp");
+            jsonResponse.addProperty("status", "error");
+            jsonResponse.addProperty("message", "Invalid credentials.");
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write(jsonResponse.toString());
         }
     }
-
 }
