@@ -1,6 +1,5 @@
 package com.screentrackr.screentrackr.servlet;
 
-import com.google.gson.Gson;
 import com.screentrackr.screentrackr.dao.UserFilmRelationDAO;
 import com.screentrackr.screentrackr.model.UserFilmRelation;
 import jakarta.servlet.ServletException;
@@ -15,8 +14,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/FilmRelationServlet")
-public class FilmRelationServlet extends HttpServlet {
+@WebServlet("/UpdateFilmRelationServlet")
+public class UpdateFilmRelationServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserFilmRelationDAO userFilmRelationDAO;
 
@@ -26,23 +25,28 @@ public class FilmRelationServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Obter dados diretamente da requisição
-        int userId = Integer.parseInt(request.getParameter("userId"));
+        int userId;
         String filmId = request.getParameter("filmId");
         String relationType = request.getParameter("relationType");
-        boolean isFavorite = Boolean.parseBoolean(request.getParameter("favorite"));
-        String posterImgUrl = request.getParameter("posterImgUrl");
-        String title = request.getParameter("title");
-        String year = request.getParameter("year");
-        String director = request.getParameter("director");
-        String rating = request.getParameter("rating");
-        String votes = request.getParameter("votes");
-        String plot = request.getParameter("plot");
-
-        // Cria um objeto UserFilmRelation com todos os campos
-        UserFilmRelation relation = new UserFilmRelation(userId, filmId, relationType, isFavorite, posterImgUrl, title, year, director, rating, votes, plot);
+        boolean isFavorite;
 
         try {
-            userFilmRelationDAO.addOrUpdateRelation(relation);
+            userId = Integer.parseInt(request.getParameter("userId"));
+            isFavorite = Boolean.parseBoolean(request.getParameter("favorite"));
+        } catch (NumberFormatException e) {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            PrintWriter out = response.getWriter();
+            out.print("{\"status\":\"error\", \"message\":\"Invalid userId or isFavorite format: " + e.getMessage() + "\"}");
+            out.flush();
+            return;
+        }
+
+        // Cria um objeto UserFilmRelation para a atualização
+        UserFilmRelation relation = new UserFilmRelation(userId, filmId, relationType, isFavorite, null, null, null, null, null, null, null);
+
+        try {
+            userFilmRelationDAO.updateRelation(relation);
             updateFilmRelationsInSession(request.getSession(), relation);
 
             response.setContentType("application/json");
@@ -63,7 +67,7 @@ public class FilmRelationServlet extends HttpServlet {
         if (relations == null) {
             relations = new ArrayList<>();
         }
-        // Remove existing relation if present, then add the updated one
+        // Atualiza a relação existente ou adiciona uma nova se não existir
         relations.removeIf(r -> r.getFilmId().equals(relation.getFilmId()) && r.getUserId() == relation.getUserId());
         relations.add(relation);
         session.setAttribute("filmRelations", relations);

@@ -25,7 +25,7 @@ public class UserFilmRelationDAO {
         return connection;
     }
 
-    public void addOrUpdateRelation(UserFilmRelation relation) throws SQLException {
+    public void addRelation(UserFilmRelation relation) throws SQLException {
         String sql = "INSERT INTO user_film_relations (user_id, film_id, relation_type, favorite, poster_img, title, year, director, rating, votes, plot) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (user_id, film_id) DO UPDATE SET relation_type = EXCLUDED.relation_type, favorite = EXCLUDED.favorite, poster_img = EXCLUDED.poster_img, title = EXCLUDED.title, year = EXCLUDED.year, director = EXCLUDED.director, rating = EXCLUDED.rating, votes = EXCLUDED.votes, plot = EXCLUDED.plot";
 
         try (Connection connection = getConnection();
@@ -123,6 +123,23 @@ public class UserFilmRelationDAO {
             e.printStackTrace();
         }
         return relation;
+    }
+
+    public void updateRelation(UserFilmRelation relation) throws SQLException {
+        String sql = "UPDATE user_film_relations SET relation_type = ?, favorite = ? WHERE user_id = ? AND film_id = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, relation.getRelationType());
+            preparedStatement.setBoolean(2, relation.isFavorite());
+            preparedStatement.setInt(3, relation.getUserId());
+            preparedStatement.setString(4, relation.getFilmId());
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
 }
