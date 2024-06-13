@@ -46,12 +46,15 @@ public class GetUserProfileServlet extends HttpServlet {
 
         try {
             User user = userDAO.getUserById(userId);
+            System.out.println(user);
+            System.out.println(user.getName());
+            System.out.println(user.getBio());
             if (user != null) {
                 response.setContentType("application/json");
                 try (PrintWriter out = response.getWriter()) {
                     out.print("{\"status\":\"success\",");
                     out.print("\"name\":\"" + user.getName() + "\",");
-                    out.print("\"bio\":\"" + user.getProfilePictureUrl() + "\"}"); // Assuming profilePictureUrl is used as bio
+                    out.print("\"bio\":\"" + user.getBio() + "\"}");
                 }
             } else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);

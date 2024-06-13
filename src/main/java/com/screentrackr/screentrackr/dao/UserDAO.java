@@ -165,6 +165,8 @@ public class UserDAO {
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
+
+
             if (resultSet.next()) {
                 user = new User();
                 user.setId(resultSet.getInt("id"));
