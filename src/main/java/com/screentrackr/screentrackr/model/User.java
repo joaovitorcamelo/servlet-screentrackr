@@ -11,11 +11,14 @@ public class User implements Serializable {
     private String authToken;
     private String name;
     private String profilePictureUrl;
+    private String bio;  // Adicionando a nova propriedade bio
 
     public User() {
     }
 
     // Getters e setters
+
+    // Id
     public int getId() {
         return id;
     }
@@ -24,6 +27,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    // Email
     public String getEmail() {
         return email;
     }
@@ -32,6 +36,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    // Password
     public String getPassword() {
         return password;
     }
@@ -40,6 +45,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    // First Login
     public boolean isFirstLogin() {
         return firstLogin;
     }
@@ -48,6 +54,7 @@ public class User implements Serializable {
         this.firstLogin = firstLogin;
     }
 
+    // Auth Token
     public String getAuthToken() {
         return authToken;
     }
@@ -56,6 +63,7 @@ public class User implements Serializable {
         this.authToken = authToken;
     }
 
+    // Name
     public String getName() {
         return name;
     }
@@ -64,6 +72,7 @@ public class User implements Serializable {
         this.name = name;
     }
 
+    // Profile Picture URL
     public String getProfilePictureUrl() {
         return profilePictureUrl;
     }
@@ -72,4 +81,12 @@ public class User implements Serializable {
         this.profilePictureUrl = profilePictureUrl;
     }
 
+    // Bio
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 }

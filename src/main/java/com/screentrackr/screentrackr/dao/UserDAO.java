@@ -141,6 +141,41 @@ public class UserDAO {
         return user;
     }
 
+    // Método para atualizar a bio do usuário
+    public void updateUserBio(int userId, String bio) throws SQLException {
+        String sql = "UPDATE users SET bio = ? WHERE id = ?";
 
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, bio);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public User getUserById(int userId) throws SQLException {
+        String sql = "SELECT id, name, bio FROM users WHERE id = ?";
+        User user = null;
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setBio(resultSet.getString("bio"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return user;
+    }
 }
 
