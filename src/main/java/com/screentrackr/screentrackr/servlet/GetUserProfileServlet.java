@@ -54,7 +54,11 @@ public class GetUserProfileServlet extends HttpServlet {
                 try (PrintWriter out = response.getWriter()) {
                     out.print("{\"status\":\"success\",");
                     out.print("\"name\":\"" + user.getName() + "\",");
-                    out.print("\"bio\":\"" + user.getBio() + "\"}");
+
+                    String bio = user.getBio();
+                    String bioJson = (bio != null) ? "\"" + bio + "\"" : null;
+
+                    out.print("\"bio\":" + bioJson + "}");
                 }
             } else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
