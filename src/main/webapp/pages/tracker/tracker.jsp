@@ -1,8 +1,3 @@
-<%@ page import="java.util.List" %>
-<%@ page import="com.screentrackr.screentrackr.model.UserFilmRelation" %>
-<%
-  List<UserFilmRelation> filmRelations = (List<UserFilmRelation>) session.getAttribute("filmRelations");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,8 +20,7 @@
   <form method="post" action="<%= request.getContextPath() %>/FilmRelationServlet">
     <input type="hidden" id="filmId" name="filmId" value="">
     <input type="hidden" id="favorite" name="favorite" value="false">
-    <input type="hidden" id="posterImgUrl" name="posterImgUrl" value=""> <!-- Adicione este campo hidden para a URL do pôster -->
-
+    <input type="hidden" id="posterImgUrl" name="posterImgUrl" value="">
     <select id="relationType" name="relationType">
       <option value="watching">Watching</option>
       <option value="watchlist">Watchlist</option>
@@ -35,7 +29,6 @@
     </select>
     <button type="submit" class="primary-btn" id="add-submit-film">Add</button>
   </form>
-<%--  <button onclick="deleteFilmRelation()" id="delete-relation-btn">Delete</button>--%>
   <span id="close-btn" onclick="closeModal()" class="material-symbols-outlined">close</span>
 </div>
 
@@ -67,101 +60,98 @@
   <section id="currently-watching" class="tracker-section">
     <h1 class="section-header">Currently Watching</h1>
     <ul id="currently-list" class="tracker-list">
-      <%
-        if (filmRelations != null && !filmRelations.isEmpty()) {
-          for (UserFilmRelation relation : filmRelations) {
-            if ("watching".equals(relation.getRelationType())) {
-              out.println("<li><img src='" + relation.getPosterImgUrl() + "' alt='Poster'></li>");
-            }
-          }
-        } else {
-          out.println("No films currently being watched.");
-        }
-      %>
+      <!-- Conteúdo será adicionado pelo JavaScript -->
     </ul>
   </section>
 
   <section id="watchlist" class="tracker-section">
     <h1 class="section-header">Watchlist</h1>
     <ul id="watchlist-list" class="tracker-list">
-      <%
-        if (filmRelations != null && !filmRelations.isEmpty()) {
-          for (UserFilmRelation relation : filmRelations) {
-            if ("watchlist".equals(relation.getRelationType())) {
-              out.println("<li><img src='" + relation.getPosterImgUrl() + "' alt='Poster'></li>");
-            }
-          }
-        } else {
-          out.println("No films in the watchlist.");
-        }
-      %>
+      <!-- Conteúdo será adicionado pelo JavaScript -->
     </ul>
   </section>
 
   <section id="watched" class="tracker-section">
     <h1 class="section-header">Watched</h1>
     <ul id="watched-list" class="tracker-list">
-      <%
-        if (filmRelations != null && !filmRelations.isEmpty()) {
-          for (UserFilmRelation relation : filmRelations) {
-            if ("watched".equals(relation.getRelationType())) {
-              out.println("<li><img src='" + relation.getPosterImgUrl() + "' alt='Poster'></li>");
-            }
-          }
-        } else {
-          out.println("No films watched.");
-        }
-      %>
+      <!-- Conteúdo será adicionado pelo JavaScript -->
     </ul>
   </section>
 
   <section id="cancelled" class="tracker-section">
     <h1 class="section-header">Cancelled</h1>
     <ul id="cancelled-list" class="tracker-list">
-      <%
-        if (filmRelations != null && !filmRelations.isEmpty()) {
-          for (UserFilmRelation relation : filmRelations) {
-            if ("cancelled".equals(relation.getRelationType())) {
-              out.println("<li><img src='" + relation.getPosterImgUrl() + "' alt='Poster'></li>");
-            }
-          }
-        } else {
-          out.println("No cancelled films.");
-        }
-      %>
+      <!-- Conteúdo será adicionado pelo JavaScript -->
     </ul>
   </section>
-
-
 </main>
 <script src="../../scripts/dropdown.js"></script>
 <script src="tracker.js"></script>
 <script>
-  // Get the context path
-  var contextPath = "${pageContext.request.contextPath}";
+  // Função para buscar os filmes do usuário e exibir nas respectivas categorias
+  function fetchUserFilms() {
+    // Recupera o userData do localStorage e extrai o userId
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userId = userData ? userData.userId : null;
 
-  // Set the URL of the servlet using the context path
-  var servletUrl = contextPath + "/FilmRelationServlet";
+    if (!userId) {
+      console.error('User ID not found');
+      return;
+    }
 
-  // Function to make the request using fetch
-  function setFilmRelationsInSession() {
-    fetch(servletUrl)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Error while making the request');
-              }
-              return response.text();
-            })
+    // Faz a requisição ao servlet para obter os filmes do usuário
+    fetch('${pageContext.request.contextPath}/LoadUserFilmsServlet?userId=' + userId)
+            .then(response => response.json())
             .then(data => {
-              console.log(data);
+              console.log('Received films:', data);
+              localStorage.setItem('filmRelations', JSON.stringify(data)); // Salva no localStorage
+              displayFilms(data); // Exibe os filmes nas categorias apropriadas
             })
             .catch(error => {
-              console.error('Error:', error);
+              console.error('Error fetching films:', error);
             });
   }
 
-  // Call the setFilmRelationsInSession function when the page is loaded
-  document.addEventListener("DOMContentLoaded", setFilmRelationsInSession);
+  // Função para exibir os filmes nas categorias apropriadas
+  function displayFilms(filmRelations) {
+    const currentlyList = document.getElementById('currently-list');
+    const watchlistList = document.getElementById('watchlist-list');
+    const watchedList = document.getElementById('watched-list');
+    const cancelledList = document.getElementById('cancelled-list');
+
+    // Limpa as listas existentes
+    currentlyList.innerHTML = '';
+    watchlistList.innerHTML = '';
+    watchedList.innerHTML = '';
+    cancelledList.innerHTML = '';
+
+    // Adiciona os filmes nas respectivas listas
+    filmRelations.forEach(relation => {
+      const listItem = document.createElement('li');
+      const img = document.createElement('img');
+      img.src = relation.posterImgUrl;
+      img.alt = 'Poster';
+      listItem.appendChild(img);
+
+      switch(relation.relationType) {
+        case 'watching':
+          currentlyList.appendChild(listItem);
+          break;
+        case 'watchlist':
+          watchlistList.appendChild(listItem);
+          break;
+        case 'watched':
+          watchedList.appendChild(listItem);
+          break;
+        case 'cancelled':
+          cancelledList.appendChild(listItem);
+          break;
+      }
+    });
+  }
+
+  // Chama a função ao carregar a página
+  document.addEventListener('DOMContentLoaded', fetchUserFilms);
 </script>
 </body>
 </html>
