@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ca3187bb-d9a4-412a-8162-776035e4f245" name="Changes" comment="One more commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/screentrackr/screentrackr/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/profile/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/profile/profile.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,7 +189,7 @@
       <workItem from="1714949578547" duration="2933000" />
       <workItem from="1717970182860" duration="27523000" />
       <workItem from="1718194607304" duration="12894000" />
-      <workItem from="1718278787685" duration="16336000" />
+      <workItem from="1718278787685" duration="17076000" />
     </task>
     <task id="LOCAL-00001" summary="One more commit">
       <option name="closed" value="true" />
@@ -256,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718336260448</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="One more commit">
+      <option name="closed" value="true" />
+      <created>1718338149416</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1718338149416</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
