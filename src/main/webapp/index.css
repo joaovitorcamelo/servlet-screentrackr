@@ -135,7 +135,7 @@ a {
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  text-wrap: nowrap;
+  text-wrap: none;
 }
 
 input[type='text'],
@@ -226,7 +226,6 @@ input[type='email'] {
   flex-direction: column;
   gap: 10px;
   background-color: var(--input-bg);
-  width: max-content;
   padding: 20px;
   border-radius: 8px;
   position: fixed;
@@ -238,17 +237,10 @@ input[type='email'] {
 
 #filmDetails {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 20px;
   padding: 10px 20px;
-}
-
-#filmDetails h1 {
-  font-size: 24px;
-}
-
-#filmDetails h3 {
-  font-size: 16px;
 }
 
 #filmDetails p {
@@ -257,15 +249,7 @@ input[type='email'] {
 }
 
 #filmDetails img {
-  height: 40vh;
-}
-
-#filmDetails>div {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-  width: 40vh;
+  height: 20vh;
 }
 
 #filmDetails #plot {

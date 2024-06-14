@@ -20,8 +20,6 @@
       top: 10px;
       right: 10px;
       padding: 8px 16px;
-      background-color: #007bff;
-      color: #fff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
@@ -29,10 +27,34 @@
       font-size: 14px;
     }
 
+    #userBio-edit, #userName-edit {
+      background: #6C6771;
+      color: black;
+    }
+
+    #updateProfileForm-edit {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    #updateProfileForm-edit > div {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    #updateProfileForm-edit .btn-container-edit {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      align-items: center;
+    }
+
     #profile-content button {
       margin-top: 10px;
       padding: 10px 20px;
-      background-color: #28a745;
+      background-color: var(--main-color);
       color: #fff;
       border: none;
       border-radius: 4px;
@@ -57,12 +79,18 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #fff;
+      background: var(--input-bg);
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
       padding: 20px;
       z-index: 1000;
       width: 300px;
+    }
+
+    #profileModal-edit > div {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .btn-container-edit {
@@ -85,7 +113,7 @@
     }
 
     .update-btn-edit {
-      background-color: #007bff;
+      background-color: var(--main-color);
       color: #fff;
     }
 
@@ -128,6 +156,17 @@
     .btn-container {
       display: flex;
       justify-content: space-between;
+    }
+    #outerDiv {
+      position: relative;
+      display: flex;
+      gap: 25px;
+      align-items: flex-start;
+    }
+    #infoDiv {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
   </style>
 </head>
@@ -195,21 +234,23 @@
 <!-- Modal -->
 <div id="modalOverlay-edit"></div>
 <div id="profileModal-edit">
-  <h2>Edit Profile</h2>
-  <form id="updateProfileForm-edit">
-    <div>
-      <label for="userName-edit">Name:</label>
-      <input type="text" id="userName-edit" name="name" required>
-    </div>
-    <div>
-      <label for="userBio-edit">Bio:</label>
-      <textarea id="userBio-edit" name="bio" required></textarea>
-    </div>
-    <div class="btn-container-edit">
-      <button type="button" class="close-btn-edit" onclick="closeModalEdit()">Close</button>
-      <button type="submit" class="update-btn-edit">Update</button>
-    </div>
-  </form>
+  <div>
+    <h2>Edit Profile</h2>
+    <form id="updateProfileForm-edit">
+      <div>
+        <label for="userName-edit">Name:</label>
+        <input type="text" id="userName-edit" name="name" required>
+      </div>
+      <div>
+        <label for="userBio-edit">Bio:</label>
+        <textarea id="userBio-edit" name="bio" required></textarea>
+      </div>
+      <div class="btn-container-edit">
+        <button type="button" class="close-btn-edit" onclick="closeModalEdit()">Close</button>
+        <button type="submit" class="update-btn-edit">Update</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script>
@@ -225,11 +266,16 @@
               .then(data => {
                 const profileContent = document.getElementById('profile-content');
                 profileContent.innerHTML =
-                        '<div>' +
+                        '<div id="outerDiv">' +
+                        '<div id="infoDiv">' +
                         '<h2>' + data.name + '</h2>' +
                         '<p>' + data.bio + '</p>' +
+                        '</div>' +
+                        '<div id="buttonDiv">' +
                         '<button onclick="openModal()">Edit Profile</button>' +
+                        '</div>' +
                         '</div>';
+
                 // Preencher inputs do modal
                 document.getElementById('userName-edit').value = data.name;
                 document.getElementById('userBio-edit').value = data.bio;

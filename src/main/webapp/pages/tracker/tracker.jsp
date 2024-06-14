@@ -12,45 +12,55 @@
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
+
     #filmModal {
-      display: none; /* Modal escondido inicialmente */
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-      padding: 20px;
-      z-index: 1000;
-      width: 300px;
+      width: 500px;
+      height: max-content;
+      gap: 5px;
     }
+
+    #filmModal * {
+      font-size: 12px;
+    }
+
+    #filmModal h2 {
+      font-size: 16px;
+    }
+
     #filmDetails {
-      margin-bottom: 20px;
+      flex-direction: column;
+      gap: 5px;
     }
-    #modalOverlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 500;
+
+    #filmDetails #filmPlot {
+      width: 100px;
+      text-wrap: normal;
     }
-    .primary-btn {
-      margin-right: 10px;
-    }
-    .danger-btn {
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 4px;
-    }
-    .btn-container {
+
+    #filmModal form {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    #filmModal form div {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .danger-btn {
+      background-color: #ff0f0f;
+      border: none;
+      outline: none;
+      padding: 10px 20px;
+      border-radius: 3px;
+      color: #300000;
+      font-size: 1.8rem;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -58,17 +68,16 @@
 <div id="modalOverlay"></div>
 <div id="filmModal">
   <div id="filmDetails">
+    <img id="filmPoster" alt="Poster" style="height: 180px; aspect-ratio:0.5; display: none;"/>
     <h2 id="filmTitle"></h2>
     <p><strong>Director:</strong> <span id="filmDirector"></span></p>
     <p><strong>Rating:</strong> <span id="filmRating"></span></p>
     <p><strong>Votes:</strong> <span id="filmVotes"></span></p>
     <p><strong>Plot:</strong> <span id="filmPlot"></span></p>
-    <img id="filmPoster" alt="Poster" style="width: 200px; display: none;"/>
   </div>
   <form id="updateFilmForm">
     <input type="hidden" id="filmId" name="filmId" value="">
     <div>
-      <label for="relationType">Relation Type:</label>
       <select id="relationType" name="relationType">
         <option value="watching">Watching</option>
         <option value="watchlist">Watchlist</option>
