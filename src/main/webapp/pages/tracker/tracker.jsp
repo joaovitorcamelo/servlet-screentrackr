@@ -104,7 +104,6 @@
       <span class="material-symbols-outlined" id="settings-icon">settings</span>
       <div id="dropdown-background">
         <ul id="dropdown-body">
-          <li><span class="material-symbols-outlined">edit</span><a href="../edit_profile/edit_profile.html"><span>Edit profile</span></a></li>
           <li><span class="material-symbols-outlined">logout</span><a href="../login/login.jsp"><span>Logout</span></a></li>
         </ul>
       </div>
@@ -184,7 +183,7 @@
       const listItem = document.createElement('li');
       const img = document.createElement('img');
       img.src = relation.posterImgUrl;
-      img.alt = 'Poster';
+      img.alt = relation.title;
       img.setAttribute('data-film-id', relation.filmId); // Adiciona o ID do filme como data attribute
       listItem.appendChild(img);
 
@@ -223,7 +222,7 @@
             .then(response => response.json())
             .then(data => {
               console.log('Film details:', data);
-              populateFilmModal(data);
+              populateFilmModalExisting(data);
               showModal();
             })
             .catch(error => {
@@ -232,9 +231,9 @@
   }
 
   // Função para preencher o modal com os dados do filme
-  function populateFilmModal(film) {
+  function populateFilmModalExisting(film) {
     // Preenchendo os elementos do modal com os dados do filme
-    document.getElementById('filmTitle').textContent = `${film.title} (${film.year})`;
+    document.getElementById('filmTitle').textContent = (film.title + '(' + film.year + ')');
     document.getElementById('filmDirector').textContent = film.director;
     document.getElementById('filmRating').textContent = film.rating;
     document.getElementById('filmVotes').textContent = film.votes;
@@ -252,6 +251,8 @@
     document.getElementById('filmId').value = film.filmId || '';
     document.getElementById('favoriteCheckbox').checked = film.isFavorite || false;
     document.getElementById('relationType').value = film.relationType || 'watching';
+    document.getElementById(`delete-relation-btn`).style.display = 'block';
+    document.getElementById(`update-submit-film`).innerText = 'Update';
   }
 
   // Função para mostrar o modal
@@ -398,9 +399,39 @@
               '</div>';
 
       searchResultsContainer.appendChild(item);
+
+      item.addEventListener('click', () => {
+        populateFilmModalNew(result)
+        showModal();
+      });
     });
 
     searchResultsContainer.style.display = 'block';
+  }
+
+  function populateFilmModalNew(film) {
+    // Preenchendo os elementos do modal com os dados do filme
+    document.getElementById('filmTitle').textContent = (film.Title + '(' + film.Year + ')');
+    document.getElementById('filmDirector').textContent = film.Director;
+    document.getElementById('filmRating').textContent = film.imdbRating;
+    document.getElementById('filmVotes').textContent = film.imdbVotes;
+    document.getElementById('filmPlot').textContent = film.Plot;
+
+    const filmPoster = document.getElementById('filmPoster');
+    if (film.Poster) {
+      filmPoster.src = film.Poster;
+      filmPoster.style.display = 'block';
+    } else {
+      filmPoster.style.display = 'none';
+    }
+
+    // Preenchendo os campos do formulário com os dados do filme
+    document.getElementById('filmId').value = film.imdbId || '';
+    document.getElementById('favoriteCheckbox').checked = false;
+    document.getElementById('relationType').value = 'watching';
+    document.getElementById(`delete-relation-btn`).style.display = 'none';
+    document.getElementById(`update-submit-film`).innerText = 'Add';
+
   }
 
   function clearSearchResults() {
