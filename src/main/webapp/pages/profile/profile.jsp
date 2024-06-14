@@ -150,8 +150,7 @@
       <span class="material-symbols-outlined" id="settings-icon">settings</span>
       <div id="dropdown-background">
         <ul id="dropdown-body">
-          <li><span class="material-symbols-outlined">edit</span><a href="../edit_profile/edit_profile.html"><span>Edit profile</span></a></li>
-          <li><span class="material-symbols-outlined">logout</span><a href="../login/login.jsp"><span>Logout</span></a></li>
+          <li><span class="material-symbols-outlined">logout</span><a href="../login/login.jsp" id="logout-button"><span>Logout</span></a></li>
         </ul>
       </div>
     </div>
@@ -381,6 +380,18 @@
       clearSearchResults();
     }
   });
+
+  // Função de logout
+  function logout() {
+    localStorage.clear();
+    window.location.href = "../login/login.jsp";
+  }
+
+  document.getElementById('logout-button').addEventListener('click', function(event) {
+    event.preventDefault();
+    logout();
+  });
 </script>
+<script src="../../scripts/dropdown.js"></script>
 </body>
 </html>

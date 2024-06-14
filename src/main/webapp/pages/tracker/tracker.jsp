@@ -104,7 +104,7 @@
       <span class="material-symbols-outlined" id="settings-icon">settings</span>
       <div id="dropdown-background">
         <ul id="dropdown-body">
-          <li><span class="material-symbols-outlined">logout</span><a href="../login/login.jsp"><span>Logout</span></a></li>
+          <li><span class="material-symbols-outlined">logout</span><a href="../login/login.jsp" id="logout-button"><span>Logout</span></a></li>
         </ul>
       </div>
     </div>
@@ -446,6 +446,17 @@
     if (!searchResultsContainer.contains(event.target) && event.target.id !== 'explore-search') {
       clearSearchResults();
     }
+  });
+
+  // Função de logout
+  function logout() {
+    localStorage.clear();
+    window.location.href = "../login/login.jsp";
+  }
+
+  document.getElementById('logout-button').addEventListener('click', function(event) {
+    event.preventDefault();
+    logout();
   });
 
   // Chama a função ao carregar a página
