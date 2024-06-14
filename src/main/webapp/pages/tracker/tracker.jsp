@@ -356,6 +356,67 @@
             });
   }
 
+  document.getElementById('explore-search').addEventListener('input', function () {
+    let query = this.value.trim();
+
+    if (query.length > 2) {
+      searchMovies(query);
+    } else {
+      clearSearchResults();
+    }
+  });
+
+  function searchMovies(query) {
+    const url = 'http://www.omdbapi.com/?t=' + query +  '&apikey=4408d32b';
+
+    fetch(url)
+            .then(response => response.json())
+            .then(data => {
+              if (data.Response === "True") {
+                displaySearchResults([data]);
+              } else {
+                clearSearchResults();
+              }
+            })
+            .catch(error => console.error('Erro ao buscar dados:', error));
+  }
+
+  function displaySearchResults(results) {
+    const searchResultsContainer = document.getElementById('searchResults');
+    searchResultsContainer.innerHTML = '';
+
+    results.forEach(result => {
+      const item = document.createElement('div');
+      item.classList.add('result-item');
+
+      // Concatenação de strings tradicional
+      item.innerHTML =
+              '<img src="' + result.Poster + '" alt="' + result.Title + '" style="width: 50px; height: auto; margin-right: 10px;">' +
+              '<div>' +
+              '<strong>' + result.Title + '</strong> (' + result.Year + ')' +
+              '<p>' + result.Plot + '</p>' +
+              '</div>';
+
+      searchResultsContainer.appendChild(item);
+    });
+
+    searchResultsContainer.style.display = 'block';
+  }
+
+  function clearSearchResults() {
+    const searchResultsContainer = document.getElementById('searchResults');
+    searchResultsContainer.innerHTML = '';
+    searchResultsContainer.style.display = 'none';
+  }
+
+  // Função para ocultar o dropdown quando clicar fora dele
+  document.addEventListener('click', function (event) {
+    const searchResultsContainer = document.getElementById('searchResults');
+    if (!searchResultsContainer.contains(event.target) && event.target.id !== 'explore-search') {
+      clearSearchResults();
+    }
+  });
+
   // Chama a função ao carregar a página
   document.addEventListener('DOMContentLoaded', fetchUserFilms);
 </script>
